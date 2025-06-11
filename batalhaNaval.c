@@ -1,57 +1,55 @@
 #include <stdio.h>
 
 /*
-Desafio Batalha Naval - Nível Novato
+Desafio Batalha Naval - Nível Aventureiro
 
 Objetivo:
-- Posicionar dois navios em um tabuleiro simples usando uma matriz bidimensional.
-- Um navio será posicionado verticalmente e outro horizontalmente.
-- Exibir as coordenadas de cada parte dos navios usando printf.
+- Expandir o tabuleiro para 10x10.
+- Posicionar quatro navios: dois na vertical/horizontal e dois na diagonal.
+- Usar o valor 3 para marcar as posições ocupadas no tabuleiro.
+- Exibir o tabuleiro inteiro, mostrando 0 para posições livres e 3 para ocupadas.
 
-Requisitos:
-- Usar matriz 2D para representar o tabuleiro.
-- Os navios serão definidos manualmente no código.
-- Mostrar as coordenadas das partes dos navios de forma organizada.
+Novidades:
+- Trabalho com matriz maior.
+- Posicionamento de navios na diagonal, que exige controle cuidadoso dos índices.
+- Impressão completa do tabuleiro para visualização clara do posicionamento.
 */
 
-// Definindo o tamanho do tabuleiro
-#define LINHAS 5
-#define COLUNAS 5
+// Definindo tamanho do tabuleiro 10x10
+#define LINHAS 10
+#define COLUNAS 10
 
 int main() {
-    // Declaração do tabuleiro 5x5, inicialmente vazio (0 = sem navio)
-    int tabuleiro[LINHAS][COLUNAS] = {0};
+    int tabuleiro[LINHAS][COLUNAS] = {0}; // Inicializa tudo com zero
 
-    // Posicionando navio vertical (tamanho 3) na coluna 1, linhas 1,2 e 3
-    // Usamos valor 1 para representar partes do navio vertical
-    for (int i = 1; i <= 3; i++) {
-        tabuleiro[i][1] = 1;
+    // Posicionando navio vertical (tamanho 4) na coluna 2, linhas 1 a 4
+    for (int i = 1; i <= 4; i++) {
+        tabuleiro[i][2] = 3;
     }
 
-    // Posicionando navio horizontal (tamanho 4) na linha 3, colunas 0 a 3
-    // Usamos valor 2 para representar partes do navio horizontal
-    for (int j = 0; j <= 3; j++) {
-        tabuleiro[3][j] = 2;
+    // Posicionando navio horizontal (tamanho 5) na linha 6, colunas 3 a 7
+    for (int j = 3; j <= 7; j++) {
+        tabuleiro[6][j] = 3;
     }
 
-    // Exibindo as coordenadas das partes do navio vertical
-    printf("Coordenadas do navio vertical (valor 1):\n");
+    // Posicionando navio diagonal (tamanho 3) a partir da posição (2,5) descendo para a direita
+    for (int k = 0; k < 3; k++) {
+        tabuleiro[2 + k][5 + k] = 3;
+    }
+
+    // Posicionando outro navio diagonal (tamanho 4) a partir da posição (7,1) subindo para a direita
+    // Como sobe, linha diminui e coluna aumenta
+    for (int k = 0; k < 4; k++) {
+        tabuleiro[7 - k][1 + k] = 3;
+    }
+
+    // Exibindo o tabuleiro completo
+    printf("Tabuleiro completo (0 = livre, 3 = navio):\n\n");
     for (int i = 0; i < LINHAS; i++) {
         for (int j = 0; j < COLUNAS; j++) {
-            if (tabuleiro[i][j] == 1) {
-                printf("Navio vertical em: Linha %d, Coluna %d\n", i, j);
-            }
+            printf("%d ", tabuleiro[i][j]);
         }
-    }
-
-    // Exibindo as coordenadas das partes do navio horizontal
-    printf("\nCoordenadas do navio horizontal (valor 2):\n");
-    for (int i = 0; i < LINHAS; i++) {
-        for (int j = 0; j < COLUNAS; j++) {
-            if (tabuleiro[i][j] == 2) {
-                printf("Navio horizontal em: Linha %d, Coluna %d\n", i, j);
-            }
-        }
+        printf("\n");
     }
 
     return 0;
